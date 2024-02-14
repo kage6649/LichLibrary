@@ -69,6 +69,7 @@ public class Book extends javax.swing.JFrame {
         
         err.setVisible(false);
         del.setVisible(false);
+        Ulasan.setVisible(false);
         cl.setVisible(false);
         
         setTable();
@@ -140,11 +141,11 @@ public class Book extends javax.swing.JFrame {
         cl = new javax.swing.JLabel();
         del = new javax.swing.JButton();
         add = new javax.swing.JButton();
+        Ulasan = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(862, 531));
         setResizable(false);
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 255));
@@ -436,20 +437,31 @@ public class Book extends javax.swing.JFrame {
             }
         });
 
+        Ulasan.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        Ulasan.setForeground(new java.awt.Color(0, 153, 255));
+        Ulasan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/regist.png"))); // NOI18N
+        Ulasan.setText("Review");
+        Ulasan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UlasanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(del, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(add))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Ulasan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(del, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(reUs)
                     .addComponent(cl))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,6 +476,8 @@ public class Book extends javax.swing.JFrame {
                         .addGap(120, 120, 120))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(del)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Ulasan)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -479,7 +493,7 @@ public class Book extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 38, Short.MAX_VALUE))
+                        .addGap(0, 44, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -514,7 +528,7 @@ public class Book extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -633,6 +647,7 @@ public class Book extends javax.swing.JFrame {
         }
         b=Btable.getValueAt(n, 0).toString();
         del.setVisible(true);
+        Ulasan.setVisible(true);
         cl.setVisible(true);
     }//GEN-LAST:event_BtableMouseClicked
 
@@ -640,12 +655,14 @@ public class Book extends javax.swing.JFrame {
         // TODO add your handling code here:
         table_val();
         del.setVisible(false);
+        Ulasan.setVisible(false);
         cl.setVisible(false);
     }//GEN-LAST:event_reUsMouseClicked
 
     private void clMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseClicked
         // TODO add your handling code here:
         del.setVisible(false);
+        Ulasan.setVisible(false);
         cl.setVisible(false);
     }//GEN-LAST:event_clMouseClicked
 
@@ -680,6 +697,7 @@ public class Book extends javax.swing.JFrame {
         }
         table_val();
         del.setVisible(false);
+        Ulasan.setVisible(false);
         cl.setVisible(false);
     }//GEN-LAST:event_delActionPerformed
 
@@ -687,8 +705,25 @@ public class Book extends javax.swing.JFrame {
         // TODO add your handling code here:
         r.toAddBook();
         del.setVisible(false);
+        Ulasan.setVisible(false);
+        cl.setVisible(false);
         table_val();
     }//GEN-LAST:event_addActionPerformed
+
+    private void UlasanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UlasanActionPerformed
+        // TODO add your handling code here:
+        try {
+        c.con = DriverManager.getConnection(c.url);
+        c.stm = c.con.createStatement();
+        String in = "insert into review values ('"+b+"')";
+//      String del = "delete from log where status='login'";
+        c.stm.execute(in);
+        r.toReview();
+        c.stm.close();c.con.close();
+         } catch (Exception e) {
+         e.printStackTrace();
+         }
+    }//GEN-LAST:event_UlasanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -729,6 +764,7 @@ public class Book extends javax.swing.JFrame {
     private javax.swing.JLabel Booking;
     private javax.swing.JTable Btable;
     private javax.swing.JScrollPane Ptab2;
+    private javax.swing.JButton Ulasan;
     private javax.swing.JButton add;
     private javax.swing.JLabel book;
     private javax.swing.JLabel cl;

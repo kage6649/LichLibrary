@@ -19,23 +19,6 @@ public class route {
         LichLibrary.menu.Home h = new LichLibrary.menu.Home();
         h.setVisible(true);
     }
-//    public void toHome(){
-//        LichLibrary.menu.home h = new LichLibrary.menu.home();
-//        h.setVisible(true);
-//    }
-//    //menu route Admin
-//    public void toAdmin(){
-//        com.perpusProto.menu.admin.Add s = new com.perpusProto.menu.admin.Add();
-//        s.setVisible(true);
-//    }
-//    public void toReport(){
-//        com.perpusProto.menu.admin.ReportAdmin r = new com.perpusProto.menu.admin.ReportAdmin();
-//        r.setVisible(true);
-//    }
-//    public void toSetAdmin(){
-//        com.perpusProto.menu.admin.SettAdmin s = new com.perpusProto.menu.admin.SettAdmin();
-//        s.setVisible(true);
-//    }
 //    //menu route 
     public void toUsers(){
         LichLibrary.menu.Users u = new LichLibrary.menu.Users();
@@ -85,6 +68,10 @@ public class route {
     public void toSetting(){
         LichLibrary.menu.popup.SetData s = new LichLibrary.menu.popup.SetData();
         s.setVisible(true);
+    }
+    public void toReview(){
+        LichLibrary.menu.popup.Review r = new LichLibrary.menu.popup.Review();
+        r.setVisible(true);
     }
     
 }

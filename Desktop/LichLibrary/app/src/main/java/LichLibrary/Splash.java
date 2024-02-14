@@ -53,8 +53,9 @@ public class Splash extends javax.swing.JFrame {
             c.stm = c.con.createStatement();
             String q = "create table log(username varchar(45),status varchar(15), level varchar(15))";
             String q2 = "create table kategori(kategori varchar(45))";
+            String q3 = "create table review(id_buku varchar(125))";
             
-            c.stm.execute(q); c.stm.execute(q2);
+            c.stm.execute(q); c.stm.execute(q2); c.stm.execute(q3);
             c.stm.close();c.con.close();
             r.toLogin();
         } catch (Exception ei) {
