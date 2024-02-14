@@ -1,0 +1,74 @@
+package com.AI.lichlibrary;
+
+
+public class ED {
+
+    private static String key2 = "lichlibrary";
+    private static String key1 = "452864";
+
+    public static byte[] hexStr2Bytes(String src) {
+        int m = 0, n = 0;
+        int l = src.length() / 2;
+        byte[] ret = new byte[l];
+        for (int i = 0; i < l; i++) {
+            m = i * 2 + 1;//  w  w  w  . ja  v a  2 s  .c om
+            n = m + 1;
+            ret[i] = Byte.decode("0x" + src.substring(i * 2, m) + src.substring(m, n));
+        }
+        return ret;
+    }
+
+    public static String decryptionKey(String password) {
+        byte[] keyByte1 = key1.getBytes();
+        byte[] keyByte2 = key2.getBytes();
+        // password = hexStr2Str(password);
+        byte[] pwdByte = hexStr2Bytes(password);
+
+        for (int i = 0; i < pwdByte.length; i++) {
+            pwdByte[i] = (byte) (pwdByte[i] ^ keyByte2[i % keyByte2.length]);
+        }
+
+        byte[] lastByte = new byte[pwdByte.length - keyByte1.length];
+        for (int i = 0; i < lastByte.length; i++) {
+            lastByte[i] = pwdByte[i];
+        }
+        for (int i = 0; i < lastByte.length; i++) {
+            lastByte[i] = (byte) (lastByte[i] ^ keyByte1[i % keyByte1.length]);
+        }
+
+        return new String(lastByte);
+    }
+
+    public static final String bytesToHexString(byte[] bArray) {
+        StringBuffer sb = new StringBuffer(bArray.length);
+        String sTemp;
+        for (int i = 0; i < bArray.length; i++) {
+            sTemp = Integer.toHexString(0xFF & bArray[i]);
+            if (sTemp.length() < 2)
+                sb.append(0);
+            sb.append(sTemp.toUpperCase());
+        }
+        return sb.toString();
+    }
+
+    public static String encryptionKey(String password) {
+        byte[] keyByte1 = key1.getBytes();
+        byte[] keyByte2 = key2.getBytes();
+        byte[] pwdByte = password.getBytes();
+        for (int i = 0; i < pwdByte.length; i++) {
+            pwdByte[i] = (byte) (pwdByte[i] ^ keyByte1[i % keyByte1.length]);
+        }
+        byte[] countByte = new byte[pwdByte.length + keyByte1.length];
+        for (int i = 0; i < countByte.length; i++) {
+            if (i < pwdByte.length)
+                countByte[i] = pwdByte[i];
+            else
+                countByte[i] = keyByte1[i - pwdByte.length];
+        }
+        for (int i = 0; i < countByte.length; i++) {
+            countByte[i] = (byte) (countByte[i] ^ keyByte2[i % keyByte2.length]);
+        }
+        return bytesToHexString(countByte);
+    }
+
+}

@@ -1,0 +1,26 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        agp_version = '8.1.2'
+        agp_version1 = '8.1.4'
+    }
+    repositories {
+        mavenCentral()
+        google()
+//        jcenter()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath "io.realm:realm-gradle-plugin:10.15.1"
+//        classpath "io.realm:realm-gradle-plugin:6.0.1"
+    }
+}
+
+plugins {
+    id 'com.android.application' version '8.1.2' apply false
+    id 'com.android.library' version '8.0.2' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

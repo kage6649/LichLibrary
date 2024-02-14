@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="289dp"
+        android:layout_height="344dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="289dp"
+            android:layout_height="344dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="Enter Rating!"
+                android:textColor="@color/base"
+                android:textColorHint="@color/base"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:hint="1-5"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/base"
+                android:textColorHint="@color/base" />
+
+            <EditText
+                android:id="@+id/et2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Bagus Sekali"
+                android:textColor="@color/base"
+                android:textColorHint="@color/base" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#0087E1"
+                    android:backgroundTintMode="add"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Submit"
+                    android:textColor="#ffffffff"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btncn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:backgroundTint="#0087E1"
+                    android:backgroundTintMode="add"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Cancel"
+                    android:textColor="#ffffffff"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+<!--    <LinearLayout-->
+<!--        android:layout_width="289dp"-->
+<!--        android:layout_height="344dp"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:fontFamily="sans-serif-medium"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Enter Rating!"-->
+<!--            android:textColor="@color/base"-->
+<!--            android:textColorHint="@color/base"-->
+<!--            android:textSize="30dp" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/et"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:fontFamily="sans-serif-medium"-->
+<!--            android:hint="1-5"-->
+<!--            android:inputType="number"-->
+<!--            android:maxLength="1"-->
+<!--            android:textColorHint="@color/base" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/et2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:fontFamily="sans-serif-medium"-->
+<!--            android:hint="Bagus Sekali"-->
+<!--            android:textColorHint="@color/base" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btnok"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:backgroundTint="#0087E1"-->
+<!--                android:backgroundTintMode="add"-->
+<!--                android:fontFamily="sans-serif-medium"-->
+<!--                android:text="Submit"-->
+<!--                android:textColor="#ffffffff"-->
+<!--                android:textSize="20sp" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btncn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:backgroundTint="#0087E1"-->
+<!--                android:backgroundTintMode="add"-->
+<!--                android:fontFamily="sans-serif-medium"-->
+<!--                android:gravity="center_vertical|center_horizontal"-->
+<!--                android:text="Cancel"-->
+<!--                android:textColor="#ffffffff"-->
+<!--                android:textSize="20sp" />-->
+
+
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

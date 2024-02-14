@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        app:showAsAction="always"
+        android:title=" "
+        android:icon="@drawable/baseline_menu_24">
+        <menu>
+            <item
+                android:id="@+id/home"
+                android:title="Home"
+                app:showAsAction="never"
+                android:icon="@drawable/baseline_home_24" />
+            <item
+                android:id="@+id/card"
+                android:title="Kartu Users"
+                app:showAsAction="never"
+                android:icon="@drawable/baseline_credit_card_24" />
+            <item
+                android:id="@+id/koleksi"
+                android:title="Koleksi"
+                app:showAsAction="never"
+                android:icon="@drawable/baseline_collections_bookmark_24"/>
+            <item
+                android:id="@+id/boking"
+                android:title="Booking"
+                app:showAsAction="never"
+                android:icon="@drawable/baseline_bookmark_add_24"/>
+            <item
+                android:id="@+id/pinjam"
+                android:title="Peminjaman"
+                app:showAsAction="never"
+                android:icon="@drawable/baseline_book_24"/>
+            <item
+                android:id="@+id/kembali"
+                android:title="Pengembalian"
+                app:showAsAction="never"
+                android:icon="@drawable/baseline_bookmark_added_24"/>
+            <item
+                android:id="@+id/logot"
+                android:title="Logout"
+                app:showAsAction="never"
+                android:icon="@drawable/baseline_logout_24"/>
+
+
+        </menu>
+    </item>
+
+</menu>
