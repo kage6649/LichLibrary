@@ -6,9 +6,12 @@ package LichLibrary.menu.popup;
 
 import LichLibrary.config.cont;
 import LichLibrary.menu.Kategori;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import java.sql.DriverManager;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -137,6 +140,8 @@ public class kPopup extends javax.swing.JFrame {
         MongoCollection<Document> col = c.db.getCollection("kategoribuku");
         MongoCollection<Document> col2 = c.db.getCollection("buku");
         MongoCollection<Document> col3 = c.db.getCollection("kategoribuku_relasi");
+        MongoCollection<Document> col4 = c.db.getCollection("ulasanbuku");
+        MongoCollection<Document> col5 = c.db.getCollection("koleksipribadi");
         Document del = new Document();
         
         if(cek.isSelected()){
@@ -149,9 +154,16 @@ public class kPopup extends javax.swing.JFrame {
                         if (c.rs.next()) {
                             String n = c.rs.getString("kategori");
                             del.put("kategori", n);
-                            col2.deleteMany(del);
-                            col3.deleteMany(del);
+                            FindIterable<Document> cv = col2.find(Filters.eq("kategori", n));
+                            cv.forEach(val -> {
+                                ObjectId id = val.getObjectId("_id");
+                                Document d = new Document("_id_buku",id);
+                                col4.deleteMany(d);
+                                col5.deleteMany(d);
+                                col3.deleteMany(d);
+                            });
                             col.deleteOne(new Document("NamaKategori",n));
+                            col2.deleteMany(del);
                             
                             String de = "delete from kategori where kategori='"+n+"'";
                             c.stm.executeUpdate(de);

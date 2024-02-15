@@ -670,11 +670,15 @@ public class Book extends javax.swing.JFrame {
         // TODO add your handling code here:
         MongoCollection<Document> col = c.db.getCollection("buku");
         MongoCollection<Document> col_d = c.db.getCollection("kategoribuku_relasi");
+        MongoCollection<Document> col2 = c.db.getCollection("ulasanbuku");
+        MongoCollection<Document> col3 = c.db.getCollection("koleksipribadi");
         Document d = new Document();
         d.put("_id", new ObjectId(b));
         try {
             col.deleteOne(d);
             col_d.deleteOne(new Document("_id_buku",new ObjectId(b)));
+            col2.deleteMany(new Document("_id_buku",new ObjectId(b)));
+            col3.deleteMany(new Document("_id_buku",new ObjectId(b)));
             err.setText("Success Delete Data!");
             err.setForeground(Color.GREEN);
             err.setIcon(new ImageIcon(getClass().getResource("/icon/check.png")));
