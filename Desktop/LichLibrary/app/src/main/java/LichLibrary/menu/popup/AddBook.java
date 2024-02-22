@@ -46,6 +46,7 @@ public class AddBook extends javax.swing.JFrame {
             Gen.addItem(val.getString("NamaKategori"));
         });
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +84,7 @@ public class AddBook extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 2));
         jPanel1.setRequestFocusEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N

@@ -12,10 +12,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author eater
- */
 public class Splash extends javax.swing.JFrame {
 //    ImageIcon imageIcon = new javax.swing.ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/lich_circle.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
     
@@ -80,17 +76,17 @@ public class Splash extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(400, 421));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 480));
 
-        jLabel3.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/lich_white.png")).getImage().getScaledInstance(325, 325, Image.SCALE_DEFAULT)));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Lich_blue.png"))); // NOI18N
         jLabel3.setPreferredSize(new java.awt.Dimension(84, 16));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(51, 153, 255));
         jLabel1.setText("©2024 LichLibrary, Inc.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -100,10 +96,8 @@ public class Splash extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(8, 8, 8))
         );
         jPanel1Layout.setVerticalGroup(

@@ -8,7 +8,6 @@ package LichLibrary.menu.popup;
 import LichLibrary.config.cont;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.DriverManager;

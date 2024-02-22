@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package LichLibrary.config;
-//import com.perpusProto.Login;
-//import LichLibrary.menu.Users;
 import LichLibrary.*;
 /**
  *

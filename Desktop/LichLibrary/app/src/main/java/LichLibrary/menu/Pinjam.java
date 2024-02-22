@@ -6,11 +6,9 @@ package LichLibrary.menu;
 
 import LichLibrary.config.cont;
 import LichLibrary.config.route;
-import static LichLibrary.menu.Booking.addDaysToSQLDate;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import java.awt.Color;
@@ -107,7 +105,7 @@ public class Pinjam extends javax.swing.JFrame {
         DefaultTableModel dt = (DefaultTableModel) PJtable.getModel();
         dt.setRowCount(0);
         
-        FindIterable<Document> show = pijm.find(Filters.eq("status","Dipinjam")).sort(new Document("_id",-1));
+        FindIterable<Document> show = pijm.find(Filters.eq("status","Dipinjam")).sort(new Document("_id",-1)).limit(50);
         show.forEach(val -> {
             Vector v = new Vector();
             v.add(val.getObjectId("_id"));
@@ -134,7 +132,7 @@ public class Pinjam extends javax.swing.JFrame {
         Document cek = new Document("$or",Arrays.asList(
                 new Document("status", "Dikembalikan"),new Document("status", "Hilang")
         ));
-        FindIterable<Document> show = kem.find(cek).sort(new Document("_id",-1));
+        FindIterable<Document> show = kem.find(cek).sort(new Document("_id",-1)).limit(50);
         show.forEach(val -> {
             Vector v = new Vector();
             v.add(val.getString("username"));
@@ -212,7 +210,6 @@ public class Pinjam extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(862, 531));
         setResizable(false);
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 255));
@@ -623,20 +620,20 @@ public class Pinjam extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(reUs))
-                            .addComponent(act, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(act, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -651,9 +648,8 @@ public class Pinjam extends javax.swing.JFrame {
                         .addComponent(reUs)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(act, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -771,7 +767,7 @@ public class Pinjam extends javax.swing.JFrame {
 
     private void stafMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stafMouseClicked
         // TODO add your handling code here:
-                this.dispose();r.toStaf();
+        this.dispose();r.toStaf();
     }//GEN-LAST:event_stafMouseClicked
 
     private void KMtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KMtableMouseClicked
@@ -874,7 +870,6 @@ public class Pinjam extends javax.swing.JFrame {
         int denda = Integer.parseInt(inHari.getText().toString());
         Calendar cal = Calendar.getInstance();
         java.sql.Date date_now = new java.sql.Date(cal.getTime().getTime());
-        //        java.sql.Date date_back = addDaysToSQLDate(date_now, date_kem);
         try {
             pijm.updateMany(Filters.eq("_id", new ObjectId(PJ)),Arrays.asList(
             Updates.set("status", "Dikembalikan"),
@@ -974,7 +969,6 @@ public class Pinjam extends javax.swing.JFrame {
         int denda = Integer.parseInt(inHari.getText().toString());
         Calendar cal = Calendar.getInstance();
         java.sql.Date date_now = new java.sql.Date(cal.getTime().getTime());
-        //        java.sql.Date date_back = addDaysToSQLDate(date_now, date_kem);
         try {
             pijm.updateMany(Filters.eq("_id", new ObjectId(PJ)),Arrays.asList(
             Updates.set("status", "Hilang"),

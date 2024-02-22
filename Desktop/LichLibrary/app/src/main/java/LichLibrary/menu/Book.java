@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package LichLibrary.menu;
-import LichLibrary.config.ED;
 import LichLibrary.config.cont;
 import LichLibrary.config.route;
 import com.mongodb.client.FindIterable;
@@ -605,7 +604,7 @@ public class Book extends javax.swing.JFrame {
 
     private void bookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookMouseClicked
         // TODO add your handling code here:
-        this.dispose();r.toBook();
+//        this.dispose();r.toBook();
     }//GEN-LAST:event_bookMouseClicked
 
     private void BookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BookingMouseClicked
@@ -635,7 +634,7 @@ public class Book extends javax.swing.JFrame {
 
     private void stafMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stafMouseClicked
         // TODO add your handling code here:
-        //        this.dispose();r.toStaf();
+        this.dispose();r.toStaf();
     }//GEN-LAST:event_stafMouseClicked
 
     private void BtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtableMouseClicked

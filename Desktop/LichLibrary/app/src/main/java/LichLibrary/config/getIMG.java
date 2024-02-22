@@ -6,10 +6,6 @@ package LichLibrary.config;
 //import com.mongodb.gridfs.*;s
 import java.io.*;
 import java.util.Base64;
-import javax.swing.JFileChooser;
-import org.bson.Document;
-import org.bson.types.ObjectId;
-import org.checkerframework.common.reflection.qual.GetClass;
 
 /**
  *

@@ -6,7 +6,6 @@ package LichLibrary.menu;
 
 import LichLibrary.config.cont;
 import LichLibrary.config.route;
-import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
@@ -98,7 +97,7 @@ public class Booking extends javax.swing.JFrame {
 //            new Document("status", "Booking"),new Document("status", "Rejected")
 //            )))
 //        ));
-        FindIterable<Document> show = boking.find(Filters.eq("status", "Booking")).sort(new Document("_id",-1));
+        FindIterable<Document> show = boking.find(Filters.eq("status", "Booking")).sort(new Document("_id",-1)).limit(50);
         show.forEach(val -> {
             Vector v = new Vector();
             v.add(val.getObjectId("_id"));
@@ -626,7 +625,7 @@ public class Booking extends javax.swing.JFrame {
 
     private void stafMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stafMouseClicked
         // TODO add your handling code here:
-               this.dispose();r.toStaf();
+        this.dispose();r.toStaf();
     }//GEN-LAST:event_stafMouseClicked
 
     private void BKtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BKtableMouseClicked

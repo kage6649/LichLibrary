@@ -4,26 +4,7 @@
  * and open the template in the editor.
  */
 package LichLibrary.config;
-//import java.nio.charset.StandardCharsets;
-//import java.security.InvalidKeyException;
-//import java.security.MessageDigest;
-//import java.security.NoSuchAlgorithmException;
-//import java.security.SecureRandom;
-//import java.util.Arrays;
-//import java.util.Base64;
-//import java.util.Base64;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-//
-//import javax.crypto.Cipher;
-//import javax.crypto.KeyGenerator;
-//import javax.crypto.SecretKey;
-//import javax.crypto.spec.SecretKeySpec;
 
-/**
- *
- * @author eater48
- */
 public class ED {
     //en and dec for android and desktop
   private static String key2 = "lichlibrary";

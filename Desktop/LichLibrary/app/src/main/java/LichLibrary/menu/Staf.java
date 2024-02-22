@@ -735,7 +735,7 @@ public class Staf extends javax.swing.JFrame {
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
         // TODO add your handling code here:
-                this.dispose();r.toHome();
+        this.dispose();r.toHome();
     }//GEN-LAST:event_homeMouseClicked
 
     private void laporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_laporanMouseClicked

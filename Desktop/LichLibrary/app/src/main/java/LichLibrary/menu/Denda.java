@@ -615,7 +615,7 @@ public class Denda extends javax.swing.JFrame {
 
     private void stafMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stafMouseClicked
         // TODO add your handling code here:
-                this.dispose();r.toStaf();
+        this.dispose();r.toStaf();
     }//GEN-LAST:event_stafMouseClicked
 
     private void idendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idendaKeyTyped

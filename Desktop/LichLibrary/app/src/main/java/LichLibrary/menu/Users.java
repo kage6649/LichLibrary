@@ -4,7 +4,6 @@
  */
 package LichLibrary.menu;
 
-import LichLibrary.config.ED;
 import LichLibrary.config.cont;
 import LichLibrary.config.route;
 import com.mongodb.client.FindIterable;
@@ -15,7 +14,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.sql.DriverManager;
-import java.util.Calendar;
 import java.util.Vector;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -854,7 +852,7 @@ public class Users extends javax.swing.JFrame {
 
     private void usersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersMouseClicked
         // TODO add your handling code here:
-        this.dispose();r.toUsers();
+//        this.dispose();r.toUsers();
     }//GEN-LAST:event_usersMouseClicked
 
     private void dendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dendaMouseClicked
@@ -884,7 +882,7 @@ public class Users extends javax.swing.JFrame {
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
         // TODO add your handling code here:
-        //        this.dispose();r.toHome();
+        this.dispose();r.toHome();
     }//GEN-LAST:event_homeMouseClicked
 
     private void laporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_laporanMouseClicked

@@ -8,16 +8,8 @@ import LichLibrary.config.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.model.Projections;
 import java.sql.DriverManager;
-import java.util.Iterator;
-import org.bson.conversions.Bson;
 
-/**
- *
- * @author eater
- */
 public class Login extends javax.swing.JFrame {
     route r = new route();
     cont c = new cont();
@@ -296,13 +288,19 @@ public class Login extends javax.swing.JFrame {
         MongoCollection<Document> user_col = c.db.getCollection("user");
         Document cek = new Document();
         cek.put("username", user);cek.put("password", pec);
-
-        if (user.equals("")&&pas.equals("")) {
+        int user_length,pas_legth;
+        user_length = user.length();
+        pas_legth = pas.length();
+        
+        if (user_length==0&&pas_legth==0) {
             err.setText("Harap Isi Username & Password!");
-        }else if (user.equals("")) {
+            err.setVisible(true);
+        }else if (user_length==0) {
             err.setText("Harap Isi Username!");
-        }else if (pas.equals("")) {
+            err.setVisible(true);
+        }else if (pas_legth==0) {
             err.setText("Harap Isi Password!");
+            err.setVisible(true);
         }else{
             FindIterable<Document> gt = user_col.find(cek);
             gt.forEach(d -> {
