@@ -145,9 +145,12 @@ public class Home extends AppCompatActivity implements MyRecyclerViewAdapter.Ite
         ArrayList<String> data3 = new ArrayList<>();
         ArrayList<String> data4 = new ArrayList<>();
         String kategori = adapter.getItem(position).toString();
-        Document fi = new Document();
-        fi.put("kategori", kategori);
-        book.find(fi).sort(new Document("_id",-1)).iterator().getAsync(val -> {
+        book.aggregate(Arrays.asList(
+                new Document("$match",new Document("kategori",kategori)),
+                new Document("$sort",new Document("_id",-1)),
+                new Document("$project",new Document("judul",1)
+                        .append("kategori",1).append("penulis",1))
+        )).iterator().getAsync(val -> {
             if (val.isSuccess()) {
                 MongoCursor<Document> value = (MongoCursor) val.get();
                 int x = 0;
@@ -186,9 +189,12 @@ public class Home extends AppCompatActivity implements MyRecyclerViewAdapter.Ite
         ArrayList<String> data3 = new ArrayList<>();
         ArrayList<String> data4 = new ArrayList<>();
         String kategori = adapter2.getItem(position).toString();
-        Document fi = new Document();
-        fi.put("kategori", kategori);
-        book.find(fi).sort(new Document("_id",-1)).iterator().getAsync(val -> {
+        book.aggregate(Arrays.asList(
+                new Document("$match",new Document("kategori",kategori)),
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$project", new Document("judul",1)
+                        .append("kategori",1).append("penulis",1))
+        )).iterator().getAsync(val -> {
             if (val.isSuccess()) {
                 MongoCursor<Document> value = (MongoCursor) val.get();
                 int x = 0;
@@ -229,7 +235,7 @@ public class Home extends AppCompatActivity implements MyRecyclerViewAdapter.Ite
         MongoCollection kategori = mongoDatabase.getCollection("kategoribuku");
         ArrayList<String> KatVal1 = new ArrayList<>();
         ArrayList<String> KatVal2 = new ArrayList<>();
-        kategori.find().sort(new Document("_id",-1)).iterator().getAsync(v2 -> {
+        kategori.find().sort(new Document("_id",-1)).limit(6).iterator().getAsync(v2 -> {
             MongoCursor<Document> value = (MongoCursor) v2.get();
             int sz = 1;
             while (value.hasNext()) {
@@ -266,30 +272,25 @@ public class Home extends AppCompatActivity implements MyRecyclerViewAdapter.Ite
         ArrayList<String> BVal3 = new ArrayList<>();
         ArrayList<String> BVal4 = new ArrayList<>();
         ArrayList<String> BVal5 = new ArrayList<>();
-        List<Document> a2 = Arrays.asList(
-                new Document("$sort",
-                        new Document("stok",1))
-        );
-
-        book.find().sort(new Document("stok",1)).iterator().getAsync(v2 ->{
+        book.aggregate(Arrays.asList(
+                new Document("$sort",new Document("_id",-1)),
+                new Document("$limit",5),
+                new Document("$project", new Document("judul",1)
+                        .append("kategori",1).append("penulis",1))
+        )).iterator().getAsync(v2 ->{
             MongoCursor<Document> value = (MongoCursor) v2.get();
             while (value.hasNext()) {
-                if (1 <= 12) {
                     value.forEachRemaining(val2 ->{
                         String KD = val2.getObjectId("_id").toString();
                         String TL = val2.getString("judul");
                         String GN = val2.getString("kategori");
                         String PN = val2.getString("penulis");
-//                        String img = val.getString("img");
 
                         BVal1.add(KD);
                         BVal2.add(TL);
                         BVal3.add(GN);
                         BVal4.add(PN);
-//                        BVal5.add(img);
-
                     });
-                }
             }
             RecyclerView recyclerBook = findViewById(R.id.listBook);
             recyclerBook.setLayoutManager(new LinearLayoutManager(this));
@@ -327,7 +328,9 @@ public class Home extends AppCompatActivity implements MyRecyclerViewAdapter.Ite
                             new Document("judul",
                                     new Document("$regex","."+src))
                     ))),
-                    new Document("$sort",new Document("_id",-1))
+                    new Document("$sort",new Document("_id",-1)),
+                    new Document("$project", new Document("judul",1)
+                            .append("kategori",1).append("penulis",1))
             );
             book.aggregate(ag).iterator().getAsync(val2 ->{
                 if (val2.isSuccess()) {
@@ -362,7 +365,7 @@ public class Home extends AppCompatActivity implements MyRecyclerViewAdapter.Ite
             });
         }
     }
-    public void ValueKoleksi(){
+    public void ValueKoleksi() {
         String usr = DB.cek();
         MongoCollection kol = mongoDatabase.getCollection("koleksipribadi");
 
@@ -376,7 +379,9 @@ public class Home extends AppCompatActivity implements MyRecyclerViewAdapter.Ite
                 new Document("$match",new Document("username",usr)),
                 new Document("$lookup",fJ),
                 new Document("$unwind","$data"),
-                new Document("$sort", new Document("_id",-1))
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$project", new Document("data.judul",1)
+                        .append("data.kategori",1).append("data.penulis",1))
         );
         ArrayList<String> data1 = new ArrayList<>();
         ArrayList<String> data2 = new ArrayList<>();

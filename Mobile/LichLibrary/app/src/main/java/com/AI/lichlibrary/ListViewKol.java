@@ -113,11 +113,7 @@ public class ListViewKol extends AppCompatActivity implements RecyleKol.ItemClic
     }
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapterBook.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(ListViewKol.this, ViewBook.class);
-//        String kode = adapterBook.getItem(position).toString();
-//        intent.putExtra("_id",kode);
-//        startActivity(intent);
+//        Toast.makeText(this, "You clicked " + adapterBook.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         alert(adapterBook.getItem(position));
     }
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -203,7 +199,9 @@ public class ListViewKol extends AppCompatActivity implements RecyleKol.ItemClic
                 new Document("$match",new Document("username",usr)),
                 new Document("$lookup",fJ),
                 new Document("$unwind","$data"),
-                new Document("$sort", new Document("_id",-1))
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$project", new Document("data.judul",1)
+                        .append("data.kategori",1).append("data.penulis",1))
         );
         ArrayList<String> data1 = new ArrayList<>();
         ArrayList<String> data2 = new ArrayList<>();

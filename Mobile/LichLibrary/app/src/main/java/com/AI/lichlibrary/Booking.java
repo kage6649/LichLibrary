@@ -136,8 +136,10 @@ public class Booking extends AppCompatActivity implements RecyleBoking.ItemClick
         MongoCollection boking = mongoDatabase.getCollection("peminjaman");
 
         String id = adapterBoking.getItem(position).toString();
-        Document cek = new Document("_id",new ObjectId(id));
-        boking.find(cek).iterator().getAsync(val -> {
+        boking.aggregate(Arrays.asList(
+                new Document("$match", new Document("_id",new ObjectId(id))),
+                new Document("$project",new Document("status",1))
+        )).iterator().getAsync(val -> {
             MongoCursor<Document> value = (MongoCursor) val.get();
             String sts = value.next().getString("status");
             if (sts.equals("Booking")) {
@@ -172,7 +174,10 @@ public class Booking extends AppCompatActivity implements RecyleBoking.ItemClick
                 new Document("$match",cek),
                 new Document("$lookup",fJ),
                 new Document("$unwind","$data"),
-                new Document("$sort", new Document("_id",-1))
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$limit", 10),
+                new Document("$project",new Document("data.judul",1)
+                .append("masa",1).append("status",1))
         );
 
         boking.aggregate(Join).iterator().getAsync(val -> {
@@ -240,7 +245,9 @@ public class Booking extends AppCompatActivity implements RecyleBoking.ItemClick
                 new Document("$match",new Document("username",usr)),
                 new Document("$lookup",fJ),
                 new Document("$unwind","$data"),
-                new Document("$sort", new Document("_id",-1))
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$project", new Document("data.judul",1)
+                        .append("data.kategori",1).append("data.penulis",1))
         );
         ArrayList<String> data1 = new ArrayList<>();
         ArrayList<String> data2 = new ArrayList<>();

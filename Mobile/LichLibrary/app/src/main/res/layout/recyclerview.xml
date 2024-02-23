@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="@color/genre">
+        app:cardBackgroundColor="@color/base">
 
         <TextView
             android:id="@+id/tvAnimalName"

@@ -175,7 +175,7 @@ public class Pinjam extends AppCompatActivity {
                         new Document("dateDifference",
                                 new Document("$dateDiff",
                                         new Document("startDate","$tgl_kembali").append("endDate","$$NOW").append("unit","day")))
-                                .append("tgl_pinjam",1).append("tgl_kembali",1).append("username",1).append("data",1))
+                                .append("tgl_pinjam",1).append("tgl_kembali",1).append("username",1).append("data.judul",1))
         );
 
         pinjam.aggregate(Join).iterator().getAsync(val -> {
@@ -227,7 +227,9 @@ public class Pinjam extends AppCompatActivity {
                 new Document("$match",new Document("username",usr)),
                 new Document("$lookup",fJ),
                 new Document("$unwind","$data"),
-                new Document("$sort", new Document("_id",-1))
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$project", new Document("data.judul",1)
+                        .append("data.kategori",1).append("data.penulis",1))
         );
         ArrayList<String> data1 = new ArrayList<>();
         ArrayList<String> data2 = new ArrayList<>();

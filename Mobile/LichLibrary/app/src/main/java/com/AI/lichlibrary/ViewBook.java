@@ -162,12 +162,22 @@ public class ViewBook extends AppCompatActivity {
     public void getVal(){
         Intent intent = getIntent();
         String kode = intent.getStringExtra("_id");
-        Log.v("st#",kode);
+//        Log.v("st#",kode);
 
         MongoCollection book = mongoDatabase.getCollection("buku");
-        MongoCollection t_book = mongoDatabase.getCollection("kategoribuku_relasi");
-        book.find(new Document("_id",new ObjectId(kode))).iterator().getAsync(val -> {
-            Log.v("st#","0");
+        book.aggregate(Arrays.asList(
+                new Document("$match",new Document("_id", new ObjectId(kode))),
+                new Document("$lookup",new Document("from","kategoribuku_relasi")
+                        .append("localField","_id")
+                        .append("foreignField","_id_buku")
+                        .append("as","data")),
+                new Document("$unwind","$data"),
+                new Document("$project",new Document("judul",1)
+                        .append("penulis",1).append("penerbit",1)
+                        .append("kategori",1).append("tahun",1)
+                        .append("data.stok",1))
+        )).iterator().getAsync(val -> {
+//            Log.v("st#","0");
             if (val.isSuccess()){
                 MongoCursor<Document> value = (MongoCursor) val.get();
                 value.forEachRemaining(v -> {
@@ -176,8 +186,24 @@ public class ViewBook extends AppCompatActivity {
                     penerbit.setText(v.getString("penerbit"));
                     genre.setText(v.getString("kategori"));
                     tahun.setText(v.getInteger("tahun").toString());
+                    Document data_stok = (Document) v.get("data");
+                    stok.setText(data_stok.getInteger("stok").toString());
+
+
+                });
+            }else {
+                Toast.makeText(this, "Conection Failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        book.aggregate(Arrays.asList(
+                new Document("$match",new Document("_id",new ObjectId(kode))),
+                new Document("$project",new Document("img",1))
+        )).iterator().getAsync(val -> {
+            if(val.isSuccess()){
+                MongoCursor<Document> value = (MongoCursor) val.get();
+                value.forEachRemaining(v -> {
                     String img = kode;
-                    Log.v("st#","1");
+//                    Log.v("st#","1");
                     try {
                         //to decode img string
                         byte[] data = android.util.Base64.decode(v.getString("img"), android.util.Base64.DEFAULT);
@@ -189,22 +215,13 @@ public class ViewBook extends AppCompatActivity {
                         //to show img
                         File path = new File("/data/data/com.AI.lichlibrary/"+CHILD_DIR+"/"+img+FILE_EXTENSION);
                         imgv.setImageURI(Uri.fromFile(path));
-                        Log.v("st#","2");
+//                        Log.v("st#","2");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
                 });
-                t_book.find(new Document("_id_buku", new ObjectId(kode))).iterator().getAsync(t_val -> {
-                    MongoCursor<Document> t_value = (MongoCursor) t_val.get();
-                    t_value.forEachRemaining(t_v -> {
-                        stok.setText(t_v.getInteger("stok").toString());
-                        Log.v("st#","3");
-                    });
-                });
-
-            }else {
-                Toast.makeText(this, "Conection Failed!", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Image Load Failed!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -358,7 +375,9 @@ public class ViewBook extends AppCompatActivity {
                 new Document("$match",new Document("username",usr)),
                 new Document("$lookup",fJ),
                 new Document("$unwind","$data"),
-                new Document("$sort", new Document("_id",-1))
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$project", new Document("data.judul",1)
+                        .append("data.kategori",1).append("data.penulis",1))
         );
         ArrayList<String> data1 = new ArrayList<>();
         ArrayList<String> data2 = new ArrayList<>();

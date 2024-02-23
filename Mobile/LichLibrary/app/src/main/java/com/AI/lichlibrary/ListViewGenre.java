@@ -92,10 +92,12 @@ public class ListViewGenre extends AppCompatActivity implements MyRecyclerViewAd
         ArrayList<String> data4 = new ArrayList<>();
         String gen = adapter.getItem(position).toString();
 //        Toast.makeText(this, gen, Toast.LENGTH_SHORT).show();
-        Document fi = new Document();
-        fi.put("kategori",gen);
-
-        book.find(fi).sort(new Document("_id",-1)).iterator().getAsync(val -> {
+        book.aggregate(Arrays.asList(
+                new Document("$match",new Document("kategori",gen)),
+                new Document("$sort",new Document("_id",-1)),
+                new Document("$project",new Document("judul",1)
+                        .append("kategori",1).append("penulis",1))
+        )).iterator().getAsync(val -> {
             if (val.isSuccess()){
                 MongoCursor<Document> value = (MongoCursor) val.get();
                 int x = 0;
@@ -141,10 +143,12 @@ public class ListViewGenre extends AppCompatActivity implements MyRecyclerViewAd
         ArrayList<String> data4 = new ArrayList<>();
         String gen = adapter2.getItem(position).toString();
 //        Toast.makeText(this, gen, Toast.LENGTH_SHORT).show();
-        Document fi = new Document();
-        fi.put("kategori",gen);
-
-        book.find(fi).iterator().getAsync(val -> {
+        book.aggregate(Arrays.asList(
+                new Document("$match",new Document("kategori",gen)),
+                new Document("$sort",new Document("_id",-1)),
+                new Document("$project",new Document("judul",1)
+                        .append("kategori",1).append("penulis",1))
+        )).iterator().getAsync(val -> {
             if (val.isSuccess()){
                 MongoCursor<Document> value = (MongoCursor) val.get();
                 int x =0;
@@ -288,7 +292,9 @@ public class ListViewGenre extends AppCompatActivity implements MyRecyclerViewAd
                 new Document("$match",new Document("username",usr)),
                 new Document("$lookup",fJ),
                 new Document("$unwind","$data"),
-                new Document("$sort", new Document("_id",-1))
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$project", new Document("data.judul",1)
+                        .append("data.kategori",1).append("data.penulis",1))
         );
         ArrayList<String> data1 = new ArrayList<>();
         ArrayList<String> data2 = new ArrayList<>();

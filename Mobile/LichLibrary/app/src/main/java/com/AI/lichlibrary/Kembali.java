@@ -172,7 +172,9 @@ public class Kembali extends AppCompatActivity {
                 new Document("$match",cek),
                 new Document("$lookup",fJ),
                 new Document("$unwind","$data"),
-                new Document("$sort", new Document("_id",-1))
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$project",new Document("data.judul",1)
+                        .append("tgl_dikembalikan",1).append("denda",1))
         );
 
         kem.aggregate(Join).iterator().getAsync(val -> {
@@ -182,12 +184,9 @@ public class Kembali extends AppCompatActivity {
                 Document data = doc.get("data", Document.class);
                 String nested = data.getString("judul");
                 String id = doc.getObjectId("_id").toString();
-//                String pjm = doc.getDate("tgl_pinjam").toString();
                 String kml = doc.getDate("tgl_dikembalikan").toString();
                 String den = "";
                 int d = doc.getInteger("denda");
-
-//                System.out.println(id+"\n"+user+"\n"+sts+"\n"+nested);
 
                 if (d==0){
                     den = "Tidak ada denda";
@@ -216,11 +215,14 @@ public class Kembali extends AppCompatActivity {
         String usr = DB.cek();
         MongoCollection kem = mongoDatabase.getCollection("peminjaman");
         MongoCollection ul = mongoDatabase.getCollection("ulasanbuku");
-        Document cek = new Document("$or", Arrays.asList(
-                new Document("status","Dikembalikan").append("username",usr),
-                new Document("status","Hilang").append("username",usr)
-        ));
-        kem.find(cek).iterator().getAsync(val -> {
+        kem.aggregate(Arrays.asList(
+                new Document("$match", new Document("$or",Arrays.asList(
+                        new Document("status","Dikembalikan").append("username",usr),
+                        new Document("status","Hilang").append("username",usr)
+                ))),
+                new Document("$sort",new Document("_id",-1)),
+                new Document("$project",new Document("_id_buku",1))
+        )).iterator().getAsync(val -> {
             MongoCursor<Document> value = (MongoCursor) val.get();
             ObjectId id_book = value.next().getObjectId("_id_buku");
             Document cek2 = new Document("_id_buku",id_book).append("username",usr);
@@ -229,7 +231,6 @@ public class Kembali extends AppCompatActivity {
                 if (value2.hasNext()){
                     Toast.makeText(this, "Termakasih Telah Meminjam Buku!", Toast.LENGTH_SHORT).show();
                 }else {
-//                    ulasan(id_book);
                     showDialog(Kembali.this,id_book);
                 }
             });
@@ -238,66 +239,6 @@ public class Kembali extends AppCompatActivity {
     }
     public void fresh(View view) {
         GetKembali();
-    }
-    public void ulasan(ObjectId id) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Ulasan Buku!");
-        builder.setMessage("Beri ulasan tentang buku ini!\nBeri rating 1-5");
-
-// Set up the input
-        final EditText rating = new EditText(this);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        rating.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_NORMAL);
-        builder.setView(rating);
-        // Set up the input
-        final EditText input = new EditText(this);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
-        builder.setView(input);
-
-// Set up the buttons
-        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                int rat; String ul;
-                rat = Integer.parseInt(rating.getText().toString());
-                ul = input.getText().toString();
-
-                if (rat<=5){
-                    Intent intent = getIntent();
-                    String kode = intent.getStringExtra("_id");
-                    String usr = DB.cek();
-                    MongoCollection ulas = mongoDatabase.getCollection("ulasanbuku");
-
-                    Document in = new Document();
-                    in.put("username",usr);
-                    in.put("_id_buku",id);
-                    in.put("rating",rat);
-                    in.put("ulasan",ul);
-
-                    ulas.insertOne(in).getAsync(cek -> {
-                        if (cek.isSuccess()){
-                            Toast.makeText(Kembali.this, "Please Pick Up a Book at The Staff Center!", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }else {
-                            Toast.makeText(Kembali.this, "Error Review Book!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }else {
-                    Toast.makeText(Kembali.this, "Rating 1 until 5!", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
     }
     public void showDialog(Activity activity,ObjectId id){
 
@@ -374,7 +315,9 @@ public class Kembali extends AppCompatActivity {
                 new Document("$match",new Document("username",usr)),
                 new Document("$lookup",fJ),
                 new Document("$unwind","$data"),
-                new Document("$sort", new Document("_id",-1))
+                new Document("$sort", new Document("_id",-1)),
+                new Document("$project", new Document("data.judul",1)
+                        .append("data.kategori",1).append("data.penulis",1))
         );
         ArrayList<String> data1 = new ArrayList<>();
         ArrayList<String> data2 = new ArrayList<>();
